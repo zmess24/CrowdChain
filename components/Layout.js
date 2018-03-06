@@ -18,14 +18,18 @@ export default props => {
 
                 <meta name="description" content="Decentralized application built on Ethereum using the Rinkeby Network that allows users to bet on a number to win Ether." />
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
+                <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet"></link>
             </Head>
+            <style jsx global>{`
+                    .layout { 
+                        margin-left: 250px !important;
+                    }
+                    `}</style>
             <MenuVertical />
-            <div style={{ marginLeft: '250px !important', backgroundColor: '#eee', height: '100vh' }}>
-                <Container>
+                <div className="layout" style={{ backgroundColor: '#eee', height: '100vh' }}>
                     {props.children}
-                </Container>
+                </div>
                 {/* <Footer /> */}
-            </div>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
-import { Menu, Icon } from 'semantic-ui-react'
+import { Link } from '../routes';
+import { Menu, Icon, Label, Divider } from 'semantic-ui-react'
 
 export default class MenuVertical extends Component {
     state = { activeItem: ''}
@@ -11,20 +11,43 @@ export default class MenuVertical extends Component {
         const { activeItem } = this.state
 
         return (
-            <Menu vertical borderless fixed="left" size="large" style={{ height: '100vh'}} icon="labeled">
+            <Menu vertical borderless fixed="left" style={{ height: '100vh', width: '250px', fontFamily: 'Roboto, sans-serif', fontSize: '18px'}} size="large">
                 <Menu.Item header><img src="../static/logo.png"/></Menu.Item>
-                <Menu.Item name='welcome' active={activeItem === 'welcome'} onClick={this.handleItemClick}>
-                    <Icon name='hand peace' />Welcome
-                </Menu.Item>
-                <Menu.Item name='dashboard' active={activeItem === 'dashboard'} onClick={this.handleItemClick}>
-                    <Icon name='dashboard' />Dashboard
-                </Menu.Item>
-                <Menu.Item name='projects' active={activeItem === 'projects'} onClick={this.handleItemClick}>
-                    <Icon name='calendar outline' />Projects
-                </Menu.Item>
-                <Menu.Item name='myProjects' active={activeItem === 'myProjects'} onClick={this.handleItemClick}>
-                    <Icon name='user' />My Projects
-                </Menu.Item>
+
+                <Divider style={{ marginLeft: '20px', marginRight: '20px'}}/>
+                
+                <Link route="/">
+                    <a className="item">
+                        <div>
+                            Welcome <Icon style={{ float: 'left', marginRight: '15px' }} name='hand peace' />
+                        </div>
+                    </a>
+                </Link>
+
+                <Link route="/dashboard">
+                    <a className="item">
+                        <div>
+                            <Icon style={{ float: 'left', marginRight: '15px' }} name='dashboard' />Dashboard
+                        </div>
+                    </a>
+                </Link>
+                
+                <Link route="/projects">
+                    <a className="item">
+                        <div>
+                            <Icon style={{ float: 'left', marginRight: '15px' }} name='calendar outline' />Projects
+                        </div>
+                    </a>
+                </Link>
+                
+                <Link route="/myprojects">
+                    <a className="item">
+                        <div>
+                            <Icon style={{ float: 'left', marginRight: '15px' }} name='user' />My Projects
+                        </div>  
+                    </a>
+                </Link>
+        
             </Menu>
         )
     }

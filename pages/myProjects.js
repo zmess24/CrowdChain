@@ -14,7 +14,7 @@ class App extends Component {
                     <Grid>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <h1 style={{ fontFamily: 'Roboto, sans-serif' }}>Welcome</h1>
+                                <h1 style={{ fontFamily: 'Roboto, sans-serif' }}>My Projects</h1>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>

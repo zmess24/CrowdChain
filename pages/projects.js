@@ -6,7 +6,7 @@ import initStore from '../store';
 import { Container, Grid } from 'semantic-ui-react';
 
 
-class App extends Component {
+class Projects extends Component {
     render() {
         return (
             <Layout>
@@ -14,7 +14,7 @@ class App extends Component {
                     <Grid>
                         <Grid.Row columns={1}>
                             <Grid.Column>
-                                <h1 style={{ fontFamily: 'Roboto, sans-serif' }}>Welcome</h1>
+                                <h1 style={{ fontFamily: 'Roboto, sans-serif' }}>Projects</h1>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -24,4 +24,4 @@ class App extends Component {
     }
 }
 
-export default withRedux(initStore, null, null)(App);
+export default withRedux(initStore, null, null)(Projects);
