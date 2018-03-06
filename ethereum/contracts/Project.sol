@@ -1,14 +1,18 @@
 pragma solidity ^0.4.17;
 
+/// @title Base for CrowdChain project contracts. Holds all common structs, events, and base variables.
+/// @author Zac Messinger
+/// @dev See README.md for more info on contract functionality.
+
 contract Project {
 
-    // Project user-defined types
+    // @dev user-defined types
     enum ProjectStatus {Paused, Active, Inactive}
 
-    // Project ownership
+    // @dev Project ownership
     address public manager;
 
-    // Project metadata
+    // @dev Project metadata
     string public title;
     string public description;
     uint256 public blockCreatedAt;
@@ -16,16 +20,22 @@ contract Project {
     uint16 public goalEther;
     ProjectStatus status;
     
-    // Project contributers
+    // @dev Project contributers
     mapping(address => bool) backers;
     uint16 public backersCount;
 
-    // Project constant variables
+    // @dev Project constant variables
     uint constant MIN_CONTRIBUTION = 0.1 ether;
 
-    // Project events
+    // @dev Emit contribution event
     event Contribute(address sender);
 
+    // @dev public method for instantiating an instance of a project
+    // @params _title: Title of the the project
+    // @params _description: Description of the project
+    // @params _blockDeadLine: Target deadline for completion of fundraising.
+    // @params _goalEther: Target goal to be raised for the project (in Wei)
+    // @params _manager: Owner of the project
     function Project(string _title, string _description, uint _blockDeadLine, uint16 _goalEther, address _manager) public {
         require(_blockDeadLine > block.number);
 
@@ -38,6 +48,7 @@ contract Project {
         status = ProjectStatus.Active;
     }
 
+    // @dev public method for contributing ether to a project
     function contribute(address _contributerAddress) public payable {
         require(msg.value >= MIN_CONTRIBUTION);
 
@@ -46,6 +57,7 @@ contract Project {
         Contribute(_contributerAddress);
     }
     
+    // @dev public method that returns the   following project data:
     function getSummary() public view returns (address, string, string, uint256, uint16) {
         return (
             manager,

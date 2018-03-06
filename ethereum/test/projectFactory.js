@@ -1,6 +1,6 @@
 var ProjectFactory = artifacts.require("./ProjectFactory.sol");
 
-let accounts, factory;
+let factory;
 
 beforeEach(async () => {
     await ProjectFactory.deployed()
@@ -9,32 +9,34 @@ beforeEach(async () => {
         })
 })
 
-describe('ProjectFactory', () => {
+contract('ProjectFactory', (accounts) => {
+
+    it('is successfully deployed', () => {
+        assert.ok(factory.address);
+    })
 
     it('has totalContributions set to 0', async() => {
         const totalContributions = await factory.totalContributions();
-        assert.equal(0, totalContributions);
+        assert.equal(0, totalContributions.toNumber());
     })
 
     it('has totalBackers set to 0', async () => {
         const totalBackers = await factory.totalBackers();
-        assert.equal(0, totalBackers);
+        assert.equal(0, totalBackers.toNumber());
     })
 
-    it('can create a project', async () => {
-        try {
-            await factory.createProject('Test Project', 'Test Description', 2000000, 16)
-            assert(true);            
-        } catch (err) {
-            assert(err)
-        }
+    it('can create a project and increment the projectCount by 1', async () => {
+        await factory.createProject("Test Project", "Test Description", 2000000, 16)
+        const projectCount = await factory.projectCount();
+        assert.equal(1, projectCount.toNumber());
     })
 
-    it('records project creation hash in the project array', async () => {
-        await factory.createProject('Test Project', 'Test Description', 2000000, 16);
-        const projects = await factory.getSummary(1);
-        console.log(projects)
-        assert.equal(1, projects)
-    })
+    console.log()
+
+    // it('adds to projectCount after adding a', async () => {
+    //     await factory.createProject("Test Project", "Test Description", 2000000, 16);
+    //     const projectCount = await factory.projectCount();
+    //     assert.equal(1, projectCount.toNumber());
+    // })
 
 })

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react';
-import Header from './Header';
+import { Container, Grid } from 'semantic-ui-react';
+import MenuVertical from './MenuVertical';
 import Footer from './Footer';
 import Head from 'next/head';
+
 
 export default props => {
     return (
@@ -18,11 +19,13 @@ export default props => {
                 <meta name="description" content="Decentralized application built on Ethereum using the Rinkeby Network that allows users to bet on a number to win Ether." />
                 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"></link>
             </Head>
-            <Header />
-            <Container>
-                {props.children}
-            </Container>
-            <Footer />
+            <MenuVertical />
+            <div style={{ marginLeft: '250px !important', backgroundColor: '#eee', height: '100vh' }}>
+                <Container>
+                    {props.children}
+                </Container>
+                {/* <Footer /> */}
+            </div>
         </div>
     )
 }

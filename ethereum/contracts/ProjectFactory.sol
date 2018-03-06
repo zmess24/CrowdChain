@@ -9,6 +9,7 @@ contract ProjectFactory {
 
     // ProjectFactory state variables.
     Project[] public projects;
+    uint32 public projectCount = 0;
     uint32 public totalContributions = 0;
     uint16 public totalBackers = 0;
     mapping(address => bool) backers;
@@ -22,6 +23,7 @@ contract ProjectFactory {
         uint newProjectId = projects.push(new Project(_title, _description, _blockDeadLine, _goalEther, msg.sender)) - 1;
         projectToIndexOwner[newProjectId] = msg.sender;
         ownerProjectCount[msg.sender]++;
+        projectCount++;
         ProjectCreation(_title, _description, msg.sender);
     }
 
