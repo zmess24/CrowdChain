@@ -9,7 +9,7 @@ export default props => {
     return (
         <div>
             <Head>
-                <title>Create Ethereum App</title>
+                <title>CrowdCoin</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 <meta name="author" content="Zac Messinger" />
                 <meta name="keywords" content="Ethereum, DAPP, Zac, Messinger, zmess, zmess24, Ether" />
@@ -23,6 +23,15 @@ export default props => {
             <style jsx global>{`
                     .layout { 
                         margin-left: 250px !important;
+                    }
+
+                    h1, h2, h3, h4, h5 {
+                        font-family: Roboto, sans-serif;
+                    }
+
+                    p {
+                        font-size: 15px;
+                        font-family: Roboto, sans-serif;
                     }
                     `}</style>
             <MenuVertical />

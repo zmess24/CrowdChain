@@ -19,7 +19,7 @@ export default class MenuVertical extends Component {
                 <Link route="/">
                     <a className="item">
                         <div>
-                            Welcome <Icon style={{ float: 'left', marginRight: '15px' }} name='hand peace' />
+                            Welcome <Icon style={{ float: 'left', marginRight: '15px', color: '#999999' }} name='hand peace' />
                         </div>
                     </a>
                 </Link>
@@ -27,7 +27,7 @@ export default class MenuVertical extends Component {
                 <Link route="/dashboard">
                     <a className="item">
                         <div>
-                            <Icon style={{ float: 'left', marginRight: '15px' }} name='dashboard' />Dashboard
+                            <Icon style={{ float: 'left', marginRight: '15px', color: '#999999' }} name='dashboard' />Dashboard
                         </div>
                     </a>
                 </Link>
@@ -35,7 +35,7 @@ export default class MenuVertical extends Component {
                 <Link route="/projects">
                     <a className="item">
                         <div>
-                            <Icon style={{ float: 'left', marginRight: '15px' }} name='calendar outline' />Projects
+                            <Icon style={{ float: 'left', marginRight: '15px', color: '#999999' }} name='calendar outline' />Projects
                         </div>
                     </a>
                 </Link>
@@ -43,7 +43,7 @@ export default class MenuVertical extends Component {
                 <Link route="/myprojects">
                     <a className="item">
                         <div>
-                            <Icon style={{ float: 'left', marginRight: '15px' }} name='user' />My Projects
+                            <Icon style={{ float: 'left', marginRight: '15px', color: '#999999' }} name='user' />My Projects
                         </div>  
                     </a>
                 </Link>
