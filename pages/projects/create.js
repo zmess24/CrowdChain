@@ -3,6 +3,7 @@ import Layout from '../../components/Layout';
 import withRedux from "next-redux-wrapper";
 import initStore from '../../store';
 import { Link } from '../../routes';
+import web3 from '../../ethereum/web3';
 import { Grid, Card, Icon, Form, Button, Input, Message, Image } from 'semantic-ui-react';
 
 class CreateProject extends Component {
@@ -15,31 +16,40 @@ class CreateProject extends Component {
         errorMessage: ''
     }
 
-    // onSubmit = async (event) => {
-    //     event.preventDefault()
+    static async getInitialProps(props) {
+        const accounts = await web3.eth.getAccounts();
+        return {
+            owner: accounts[0]
+        }
+    } 
 
-    //     const campaign = Campaign(this.props.address);
-    //     const { description, value, recipient } = this.state;
+    onSubmit = async (event) => {
+        event.preventDefault()
 
-    //     this.setState({ loading: true, errorMessage: '' })
+        const { title, goalEther, description, goalDate } = this.state;
 
-    //     try {
-    //         const accounts = await web3.eth.getAccounts();
-    //         await campaign.methods.createRequest(
-    //             description,
-    //             web3.utils.toWei(value, 'ether'),
-    //             recipient
-    //         ).send({ from: accounts[0] });
+        this.setState({ loading: true, errorMessage: '' })
 
-    //         Router.pushRoute('/campaigns/' + this.props.address + '/requests');
-    //     } catch (err) {
-    //         this.setState({ errorMessage: err.message })
-    //     }
 
-    //     this.setState({ loading: false })
-    // };
+        try {
+            const accounts = await web3.eth.getAccounts();
+            debugger
+            // await campaign.methods.createRequest(
+            //     description,
+            //     web3.utils.toWei(value, 'ether'),
+            //     recipient
+            // ).send({ from: accounts[0] });
+
+            // Router.pushRoute('/campaigns/' + this.props.address + '/requests');
+        } catch (err) {
+            this.setState({ errorMessage: err.message })
+        }
+
+        this.setState({ loading: false })
+    };
 
     render() {
+        console.log(this.props.owner)
         return (
             <Layout>
                 <div style={{ padding: '25px' }}>
@@ -80,22 +90,21 @@ class CreateProject extends Component {
                                             <Form.Group>
                                                 <Form.Field width={8}>
                                                     <label>Owner</label>
-                                                    <Input
-                                                        value={this.state.recipient}
-                                                        onChange={event => this.setState({ recipient: event.target.value })}
+                                                    <Input disabled
+                                                        value={this.props.owner}
                                                     />
                                                 </Form.Field>
                                                 <Form.Field width={8}>
                                                     <label>Goal Date</label>
                                                     <Input
-                                                        value={this.state.recipient}
+                                                        value={this.state.goalDate}
                                                         type="date"
-                                                        onChange={event => this.setState({ recipient: event.target.value })}
+                                                        onChange={event => this.setState({ goalDate: event.target.value })}
                                                     />
                                                 </Form.Field>
                                             </Form.Group>
                                             <Form.Group>
-                                                <Form.Field placeholder="Enter a project description..." width={16} label="Description" control='textarea' value={this.state.goalEther} onChange={event => this.setState({ goalEther: event.target.value })} />
+                                                <Form.Field placeholder="Enter a project description..." width={16} label="Description" control='textarea' value={this.state.description} onChange={event => this.setState({ description: event.target.value })} />
                                             </Form.Group>
                                             <Button loading={this.state.loading} color='black' floated="right">Create Project</Button>
                                             <Message error header="Oops" content={this.state.errorMessage} />

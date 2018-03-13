@@ -12,6 +12,7 @@ contract ProjectFactory {
     uint32 public projectCount = 0;
     uint32 public totalContributions = 0;
     uint16 public totalBackers = 0;
+    uint256 public biggestContribution = 0;
     mapping(address => bool) backers;
     mapping(uint => address) public projectToIndexOwner;
     mapping(address => uint) public ownerProjectCount;
@@ -19,12 +20,13 @@ contract ProjectFactory {
     // ProjectFactory Events
     event ProjectCreation(string title, string description, address manager);
 
-    function createProject(string _title, string _description, uint _blockDeadLine, uint16 _goalEther) public {
+    function createProject(string _title, string _description, uint _blockDeadLine, uint16 _goalEther) public returns (uint) {
         uint newProjectId = projects.push(new Project(_title, _description, _blockDeadLine, _goalEther, msg.sender)) - 1;
         projectToIndexOwner[newProjectId] = msg.sender;
         ownerProjectCount[msg.sender]++;
         projectCount++;
         ProjectCreation(_title, _description, msg.sender);
+        return (newProjectId);
     }
 
     function contributeToProject(address _projectAddress) public payable {
@@ -36,6 +38,10 @@ contract ProjectFactory {
             backers[msg.sender] = true;
             totalBackers++;
         }
+
+        if (msg.value > biggestContribution) {
+            biggestContribution = msg.value;
+        }
     }
 
     function getSummary() public view returns (uint, uint, uint) {
@@ -44,6 +50,10 @@ contract ProjectFactory {
             totalBackers,
             projects.length
         );
+    }
+
+    function getDeployedProjects() public view returns (Project[]) {
+        return projects;
     }
 
 }
