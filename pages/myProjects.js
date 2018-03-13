@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Layout from '../components/Layout';
 import withRedux from "next-redux-wrapper";
 import initStore from '../store';
+import { Link } from '../routes';
 import { Container, Grid, Card, Icon, Table } from 'semantic-ui-react';
 
 
@@ -22,7 +23,11 @@ class App extends Component {
                             <Grid.Column>
                                 <Card fluid>
                                     <Card.Content>
-                                        <Icon style={{ float: 'right' }} size="big" name='plus square' />
+                                        <Link route={"/projects/create"}>
+                                            <a style={{ color: 'black'}}>
+                                                <Icon style={{ float: 'right' }} size="big" name='plus square' />
+                                            </a>
+                                        </Link>
                                         <Card.Header>My Projects</Card.Header>
                                         <Card.Meta>Campaigns started by my Metamask account.</Card.Meta>
                                     </Card.Content>

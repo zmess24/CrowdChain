@@ -37,4 +37,10 @@ contract CrowdCoinFactory {
         mapping (uint => Beneficiary) beneficiaries;
         ProjectStatus status;
     }
+
+    Project[] public projects;
+    uint32 public projectCount = 0;
+    uint32 public totalContributions = 0;
+    uint16 public totalBackers = 0;
+    uint public highContribution;
 }
