@@ -4,7 +4,6 @@ import withRedux from "next-redux-wrapper";
 import initStore from '../store';
 import { Container, Grid, Card, Icon, Segment, Table } from 'semantic-ui-react';
 
-
 class Dashboard extends Component {
 
     state = {

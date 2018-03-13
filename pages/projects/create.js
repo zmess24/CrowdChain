@@ -18,6 +18,7 @@ class CreateProject extends Component {
 
     static async getInitialProps(props) {
         const accounts = await web3.eth.getAccounts();
+        debugger
         return {
             owner: accounts[0]
         }
@@ -90,7 +91,7 @@ class CreateProject extends Component {
                                             <Form.Group>
                                                 <Form.Field width={8}>
                                                     <label>Owner</label>
-                                                    <Input disabled
+                                                    <Input disabled 
                                                         value={this.props.owner}
                                                     />
                                                 </Form.Field>

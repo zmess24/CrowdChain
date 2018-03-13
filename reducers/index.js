@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import betReducer from './betReducer';
-import summaryReducer from './summaryReducer';
+// import initialState from './initialState';
 
 export default combineReducers({
-    bet: betReducer,
-    summary: summaryReducer,
+    // initialState:
 });

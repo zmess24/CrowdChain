@@ -1,58 +1,44 @@
 import * as types from '../constants/actionTypes';
-import objectAssign from 'object-assign';
-// import factory from '../ethereum/factory';
-// import web3 from '../ethereum/web3';
+import web3 from '../ethereum/web3';
 
-export function fetchSummary(){
-    return async function (dispatch) {
-        // const numberOfBets = await factory.methods.numberOfBets().call();
-        // const totalBet = await factory.methods.totalBet().call();
-        // const minimumBet = await factory.methods.minimumBet().call();
-        // const maxAmountofBets = await factory.methods.maxAmountOfBets().call();
-        // const roundsWithOutWinner = await factory.methods.roundsWithOutWinner().call();
-        // const data = {
-        //     numberOfBets,
-        //     totalBet: web3.utils.fromWei(totalBet, 'ether'),
-        //     minimumBet: web3.utils.fromWei(minimumBet, 'ether'),
-        //     maxAmountofBets,
-        //     roundsWithOutWinner
-        // }
-        const data = {
-            numberOfBets: 0,
-            totalBet: 1,
-            minimumBet: 0.1,
-            maxAmountofBets: 10,
-            roundsWithOutWinner: 10
-        }
-        dispatch({ type: types.LOAD_SUMMARY_SUCCESS, data }) ;
+function web3Initialized(results) {
+    return {
+        type: types.WEB3_INITIALIZED,
+        payload: results
     }
+}
 
-};
+export function getWeb3() {
+    return async function (dispatch) {
+        let web3, results;
+        // check if runnig code in the server or the browser
+        if (typeof window !== 'undefined' && typeof window.web3 !== 'undefined') {
+            // We are in the browser and metamask is running.
+            web3 = new Web3(window.web3.currentProvider);
 
-// export function submitBet(bet, numberSelected) {
-//     return async function (dispatch) {
-//         dispatch({ type: types.SUBMIT_BET_REQUEST, data: { bet, numberSelected } });
+            results = {
+                web3Instance: web3
+            }
 
-//         try {
-//             const accounts = await web3.eth.getAccounts();
-//             await factory.methods.bet(numberSelected).send({
-//                 from: accounts[0],
-//                 value: web3.utils.toWei(bet, 'ether'),
-//                 gas: '1000000'
-//             })
+            console.log('Injected web3 detected.');
+            
+            dispatch(web3Initialized(results))
+        } else {
+            // We are on the server *OR* the user is not running metamask.
+            // const provider = new Web3.providers.HttpProvider(
+            //     'https://rinkeby.infura.io/2KgE38uh5rYNDiH8nwzY'
+            // )
+            const provider = new Web3.providers.HttpProvider('http://127.0.0.1:9545')
 
-//             dispatch({ type: types.SUBMIT_BET_SUCCESS });
+            web3 = new Web3(provider);
 
-//         } catch (err) {
-//             let error = err.message;
-//             let data = { error: error, bet: bet, numberSelected: numberSelected };
-//             if (error === "while converting number to string, invalid number value '', should be a number matching (^-?[0-9.]+).") {
-//                 dispatch({ type: types.SUBMIT_BET_ERROR, data: "Please enter an amount of ether to bet." })
-//             } else if (error.includes("Returned error: Error: MetaMask Tx Signature: User denied transaction signature")) {
-//                 dispatch({ type: types.SUBMIT_BET_ERROR, data: "User denied transaction." })
-//             } else {
-//                 dispatch({ type: types.SUBMIT_BET_ERROR, data: error })
-//             }
-//         }
-//     }
-// };
+            results = {
+                web3Instance: web3
+            }
+
+            console.log('No web3 instance injected, using Local web3.');
+            debugger
+            dispatch(web3Initialized(results))
+        }
+    }
+}
