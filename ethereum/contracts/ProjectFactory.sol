@@ -20,8 +20,8 @@ contract ProjectFactory {
     // ProjectFactory Events
     event ProjectCreation(string title, string description, address manager);
 
-    function createProject(string _title, string _description, uint _blockDeadLine, uint16 _goalEther) public returns (uint) {
-        uint newProjectId = projects.push(new Project(_title, _description, _blockDeadLine, _goalEther, msg.sender)) - 1;
+    function createProject(string _title, string _description, string _goalDate, uint16 _goalEther) public returns (uint) {
+        uint newProjectId = projects.push(new Project(_title, _description, _goalDate, _goalEther, msg.sender)) - 1;
         projectToIndexOwner[newProjectId] = msg.sender;
         ownerProjectCount[msg.sender]++;
         projectCount++;

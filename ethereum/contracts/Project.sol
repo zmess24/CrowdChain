@@ -16,8 +16,8 @@ contract Project {
     string public title;
     string public description;
     uint256 public blockCreatedAt;
-    uint256 public blockDeadLine;
-    uint16 public fundingGoal;
+    string public goalDate;
+    uint16 public goalEther;
     ProjectStatus status;
     
     // @dev Project contributers
@@ -36,14 +36,13 @@ contract Project {
     // @params _blockDeadLine: Target deadline for completion of fundraising.
     // @params _fundingGoal: Target goal to be raised for the project (in Wei)
     // @params _manager: Owner of the project
-    function Project(string _title, string _description, uint _blockDeadLine, uint16 _fundingGoal, address _manager) public {
-        require(_blockDeadLine > block.number);
+    function Project(string _title, string _description, string _goalDate, uint16 _goalEther, address _manager) public {
 
         title = _title;
         description = _description;
         blockCreatedAt = block.number;
-        blockDeadLine = _blockDeadLine;
-        fundingGoal = _fundingGoal;
+        goalDate = _goalDate;
+        goalEther = _goalEther;
         manager = _manager;
         status = ProjectStatus.Active;
     }
